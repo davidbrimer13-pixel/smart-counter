@@ -1,14 +1,13 @@
 # Microsoft MakeCode Python for micro:bit
 # Press A to choose a start number from 1 to 9, then press B to count down.
-# The tone gets higher as the displayed number gets lower.
+# Every buzzer tone is middle C (C4, 262 Hz).
 
 start_number = 5
+MIDDLE_C = 262
 
 
 def play_number_tone(number, duration):
-    # Lower numbers sound higher/brighter; higher numbers sound lower/deeper.
-    frequency = 440 + (9 - number) * 55
-    music.play_tone(frequency, duration)
+    music.play_tone(MIDDLE_C, duration)
 
 
 def on_button_pressed_a():
@@ -28,7 +27,7 @@ def on_button_pressed_b():
         basic.pause(300)
 
     basic.show_icon(IconNames.YES)
-    music.play_tone(988, 300)
+    play_number_tone(start_number, 300)
     basic.pause(700)
     basic.show_number(start_number)
 
