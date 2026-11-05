@@ -1,25 +1,30 @@
-from microbit import *
+# Microsoft MakeCode Python for micro:bit
+# Press A to choose a start number from 1 to 9, then press B to count down.
 
-# Choose a starting number with button A, then press button B to count down.
-# The display can show the digits 1 through 9, so the counter wraps after 9.
 start_number = 5
 
-display.scroll("A SET B GO")
-display.show(start_number)
 
-while True:
-    if button_a.was_pressed():
-        start_number += 1
-        if start_number > 9:
-            start_number = 1
-        display.show(start_number)
+def on_button_pressed_a():
+    global start_number
+    start_number += 1
+    if start_number > 9:
+        start_number = 1
+    basic.show_number(start_number)
 
-    if button_b.was_pressed():
-        # Show each number for one second, ending at zero.
-        for number in range(start_number, -1, -1):
-            display.show(number)
-            sleep(1000)
 
-        display.show(Image.YES)
-        sleep(1000)
-        display.show(start_number)
+def on_button_pressed_b():
+    global start_number
+    for number in range(start_number, -1, -1):
+        basic.show_number(number)
+        basic.pause(1000)
+
+    basic.show_icon(IconNames.YES)
+    basic.pause(1000)
+    basic.show_number(start_number)
+
+
+input.on_button_pressed(Button.A, on_button_pressed_a)
+input.on_button_pressed(Button.B, on_button_pressed_b)
+
+basic.show_string("A SET B GO")
+basic.show_number(start_number)
